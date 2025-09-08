@@ -39,6 +39,17 @@ Este proyecto implementa una API RESTful para gestionar posts usando Node.js, Ex
    ```
 3. Importa la colección en Postman y prueba los endpoints.
 
+
+## Nota académica: Uso de base de datos en memoria
+
+Este proyecto utiliza **MongoMemoryServer** para gestionar la base de datos en memoria. Esto permite ejecutar y probar la API sin necesidad de instalar MongoDB localmente, ideal para actividades académicas y pruebas.
+
+- La configuración está en `config/db.config.js`.
+- El servidor se conecta automáticamente a la base de datos en memoria al ejecutar `npm start`.
+- Todos los datos se almacenan temporalmente y se eliminan al reiniciar el servidor.
+
+Esta solución sigue la plantilla recomendada en clase y facilita la entrega y evaluación del proyecto.
+
 ## Endpoints principales
 
 - **Crear Post**: `POST /api/posts`
@@ -46,6 +57,30 @@ Este proyecto implementa una API RESTful para gestionar posts usando Node.js, Ex
 - **Detalle Post**: `GET /api/posts/:id`
 - **Modificar Post**: `PATCH /api/posts/:id`
 - **Eliminar Post**: `DELETE /api/posts/:id`
+
+
+## Detalle de los endpoints codificados en routes/posts.js
+
+### 1. POST /api/posts
+- Recibe un body JSON con los campos `title`, `text` y `author`.
+- Si los datos son válidos, devuelve **HTTP 201** y el detalle del post creado.
+- Si hay errores de validación, devuelve **HTTP 400** y un mensaje de error.
+
+### 2. GET /api/posts
+- Devuelve **HTTP 200 OK** y un listado JSON de todos los posts almacenados.
+
+### 3. GET /api/posts/<id>
+- Si el post existe, devuelve **HTTP 200 OK** y el detalle del post.
+- Si el post no existe, devuelve **HTTP 404** y un mensaje de error.
+
+### 4. PATCH /api/posts/<id>
+- Recibe un body JSON con alguno de los campos `title`, `text` y/o `author`.
+- Si el post existe y la validación es correcta, devuelve **HTTP 200 OK** y el post actualizado.
+- Si el post no existe, devuelve **HTTP 404**.
+
+### 5. DELETE /api/posts/<id>
+- Si el post existe y se elimina, devuelve **HTTP 204** (sin cuerpo).
+- Si el post no existe, devuelve **HTTP 404**.
 
 ## Autor
 Palmira Ramírez
